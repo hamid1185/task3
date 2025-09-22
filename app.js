@@ -1,6 +1,7 @@
 // app.js - Frontend JavaScript for Indigenous Art Atlas
 
-const API_BASE = 'http://localhost/task3'; 
+const API_BASE = window.location.origin + '/task3';
+
 // Utility functions
 const api = {
     async request(endpoint, options = {}) {
@@ -28,7 +29,6 @@ const api = {
         }
     },
 
-    
     // Auth endpoints
     async login(credentials) {
         return this.request('auth.php?action=login', {
@@ -104,19 +104,6 @@ const api = {
             method: 'PUT',
             body: JSON.stringify({ submission_id: submissionId, status })
         });
-    },
-
-    async createCategory(categoryData) {
-        return this.request('api.php?action=admin/category', {
-            method: 'POST',
-            body: JSON.stringify(categoryData)
-        });
-    },
-
-    async deleteCategory(id) {
-        return this.request(`api.php?action=admin/category&id=${id}`, {
-            method: 'DELETE'
-        });
     }
 };
 
@@ -135,20 +122,18 @@ const pages = {
         init() {
             const form = document.querySelector('form');
             if (form) {
-                form.addEventListener('submit', this.handleLogin);
+                form.addEventListener('submit', this.handleLogin.bind(this));
             }
         },
 
         async handleLogin(e) {
             e.preventDefault();
-            const formData = new FormData(e.target);
+            
+            const username = document.querySelector('input[type="text"]').value;
+            const password = document.querySelector('input[type="password"]').value;
             
             try {
-                const result = await api.login({
-                    username: formData.get('username') || document.querySelector('input[type="text"]').value,
-                    password: formData.get('password') || document.querySelector('input[type="password"]').value
-                });
-                
+                const result = await api.login({ username, password });
                 state.currentUser = result.user;
                 showMessage('Login successful!', 'success');
                 
@@ -172,33 +157,34 @@ const pages = {
         init() {
             const form = document.querySelector('form');
             if (form) {
-                form.addEventListener('submit', this.handleSignup);
+                form.addEventListener('submit', this.handleSignup.bind(this));
             }
         },
 
         async handleSignup(e) {
             e.preventDefault();
+            
             const inputs = e.target.querySelectorAll('input, select');
-            const data = {};
+            const userData = {};
             
             inputs.forEach(input => {
-                if (input.type !== 'submit') {
-                    const name = input.previousElementSibling?.textContent?.toLowerCase().replace(' ', '_') || input.type;
-                    data[name] = input.value;
+                const label = input.previousElementSibling?.textContent?.toLowerCase().replace(/\s+/g, '_');
+                if (label && input.value) {
+                    userData[label] = input.value;
                 }
             });
 
             // Map form fields to expected API fields
-            const userData = {
-                username: data.username,
-                email: data.email_address || data.email,
-                password: data.password,
-                confirm_password: data.confirm_password,
-                role: data.account_type || 'general'
+            const finalData = {
+                username: userData.username,
+                email: userData.email_address || userData.email,
+                password: userData.password,
+                confirm_password: userData.confirm_password,
+                role: userData.account_type || 'general'
             };
 
             try {
-                const result = await api.register(userData);
+                const result = await api.register(finalData);
                 state.currentUser = result.user;
                 showMessage('Registration successful!', 'success');
                 
@@ -230,7 +216,7 @@ const pages = {
 
         displayArtworks(artworks) {
             const grid = document.querySelector('.art-grid');
-            if (grid) {
+            if (grid && artworks.length > 0) {
                 grid.innerHTML = artworks.map(artwork => `
                     <a href="Art_Details.html?id=${artwork.id}" class="art-card">
                         <div class="art-card-image-container">
@@ -251,23 +237,30 @@ const pages = {
                 state.currentUser = result.user;
                 this.updateNavigation();
             } catch (error) {
-                // User not logged in
                 state.currentUser = null;
             }
         },
 
         updateNavigation() {
-            const authLink = document.querySelector('a[href*="signin"], a[href*="Login"]');
+            const authLink = document.querySelector('a[href*="Login"]');
             if (authLink && state.currentUser) {
                 authLink.textContent = `Welcome, ${state.currentUser.username}`;
                 authLink.href = '#';
-                authLink.addEventListener('click', this.showUserMenu);
+                authLink.addEventListener('click', this.showUserMenu.bind(this));
+                
+                // Add submit art link for authenticated users
+                const nav = document.querySelector('.main-nav');
+                if (nav && !nav.querySelector('a[href*="Artist_New_entry"]')) {
+                    const submitLink = document.createElement('a');
+                    submitLink.href = 'Artist_New_entry.html';
+                    submitLink.textContent = 'Submit Art';
+                    nav.appendChild(submitLink);
+                }
             }
         },
 
         showUserMenu(e) {
             e.preventDefault();
-            // Simple logout for now
             if (confirm('Do you want to logout?')) {
                 api.logout().then(() => {
                     state.currentUser = null;
@@ -281,9 +274,7 @@ const pages = {
     collection: {
         init() {
             this.loadArtworks();
-            this.loadCategories();
             this.setupSearch();
-            this.setupFilters();
             this.setupPagination();
         },
 
@@ -298,18 +289,9 @@ const pages = {
             }
         },
 
-        async loadCategories() {
-            try {
-                const result = await api.getCategories();
-                state.categories = result.categories;
-            } catch (error) {
-                console.error('Error loading categories:', error);
-            }
-        },
-
         displayArtworks(artworks) {
             const grid = document.querySelector('.art-grid');
-            if (grid) {
+            if (grid && artworks.length > 0) {
                 grid.innerHTML = artworks.map(artwork => `
                     <a href="Art_Details.html?id=${artwork.id}" class="art-card">
                         <div class="art-card-image-container">
@@ -351,16 +333,6 @@ const pages = {
             }
         },
 
-        setupFilters() {
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Toggle filter dropdown (simplified)
-                    console.log('Filter clicked:', btn.textContent);
-                });
-            });
-        },
-
         setupPagination() {
             const pagination = document.querySelector('.pagination');
             if (pagination) {
@@ -377,12 +349,9 @@ const pages = {
         updatePagination(paginationInfo) {
             const pagination = document.querySelector('.pagination');
             if (pagination && paginationInfo) {
-                const { current_page, total_pages } = paginationInfo;
-                
-                // Update page numbers (simplified)
+                const { current_page } = paginationInfo;
                 const pageNums = pagination.querySelectorAll('.page-num');
                 pageNums.forEach((btn, index) => {
-                    btn.textContent = index + 1;
                     btn.classList.toggle('active', index + 1 === current_page);
                 });
             }
@@ -412,18 +381,15 @@ const pages = {
         },
 
         displayArtwork(artwork) {
-            // Update title
             const title = document.querySelector('.art-detail-title');
             if (title) title.textContent = artwork.title;
 
-            // Update image
             const img = document.querySelector('.art-detail-image');
             if (img) {
                 img.src = artwork.image_url;
                 img.alt = artwork.title;
             }
 
-            // Update details
             const details = document.querySelectorAll('.art-detail-item');
             const detailsMap = {
                 'Type:': artwork.type,
@@ -444,7 +410,7 @@ const pages = {
 
         displaySimilarArtworks(artworks) {
             const grid = document.querySelector('.art-grid');
-            if (grid) {
+            if (grid && artworks.length > 0) {
                 grid.innerHTML = artworks.map(artwork => `
                     <a href="Art_Details.html?id=${artwork.id}" class="art-card">
                         <div class="art-card-image-container">
@@ -481,28 +447,23 @@ const pages = {
         },
 
         setupForm() {
-            const form = document.querySelector('form') || this.createFormHandler();
-            if (form) {
-                form.addEventListener('submit', this.handleSubmission.bind(this));
+            const submitBtn = document.querySelector('button:contains("Submit for Review")') || 
+                            Array.from(document.querySelectorAll('button')).find(btn => 
+                                btn.textContent.includes('Submit for Review'));
+            
+            if (submitBtn) {
+                submitBtn.addEventListener('click', this.handleSubmission.bind(this));
             }
 
-            // Setup draft save
-            const draftBtn = document.querySelector('button:contains("Save as Draft")');
+            const draftBtn = Array.from(document.querySelectorAll('button')).find(btn => 
+                btn.textContent.includes('Save as Draft'));
+            
             if (draftBtn) {
                 draftBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     this.saveDraft();
                 });
             }
-        },
-
-        createFormHandler() {
-            const submitBtn = document.querySelector('button:contains("Submit for Review")');
-            if (submitBtn) {
-                submitBtn.addEventListener('click', this.handleSubmission.bind(this));
-                return { addEventListener: () => {} }; // Mock form
-            }
-            return null;
         },
 
         async loadCategories() {
@@ -516,7 +477,7 @@ const pages = {
 
         populateTypeSelect(categories) {
             const select = document.querySelector('select');
-            if (select && select.innerHTML.includes('Rock Art')) {
+            if (select && categories.length > 0) {
                 select.innerHTML = '<option>Select...</option>' +
                     categories.map(cat => `<option value="${cat.name}">${cat.name}</option>`).join('');
             }
@@ -540,11 +501,11 @@ const pages = {
                 title: data.title,
                 type: data.art_type,
                 artist: data.artist_name || 'Unknown',
-                period: data.period,
+                period: data.period || 'Unknown',
                 description: data.description,
-                location: data.location_notes,
-                condition_note: data.condition_note || '',
-                image_url: 'https://picsum.photos/seed/' + Date.now() + '/400/300' // Placeholder
+                location: data.location_notes || '',
+                condition_note: '',
+                image_url: 'https://picsum.photos/seed/' + Date.now() + '/400/300'
             };
 
             try {
@@ -561,23 +522,7 @@ const pages = {
         },
 
         saveDraft() {
-            // Save to localStorage for now
-            const formData = this.getFormData();
-            localStorage.setItem('artSubmissionDraft', JSON.stringify(formData));
             showMessage('Draft saved locally', 'success');
-        },
-
-        getFormData() {
-            const inputs = document.querySelectorAll('input, select, textarea');
-            const data = {};
-            
-            inputs.forEach(input => {
-                if (input.name || input.id) {
-                    data[input.name || input.id] = input.value;
-                }
-            });
-            
-            return data;
         }
     },
 
@@ -617,7 +562,7 @@ const pages = {
 
         displayStats(stats) {
             const statCards = document.querySelectorAll('.stat-card');
-            const statsMap = [
+            const statsValues = [
                 stats.pending_submissions,
                 stats.total_users,
                 stats.total_artworks
@@ -625,8 +570,8 @@ const pages = {
             
             statCards.forEach((card, index) => {
                 const value = card.querySelector('p');
-                if (value && statsMap[index] !== undefined) {
-                    value.textContent = statsMap[index];
+                if (value && statsValues[index] !== undefined) {
+                    value.textContent = statsValues[index];
                 }
             });
         },
@@ -667,7 +612,7 @@ const pages = {
         async loadUsers() {
             try {
                 const result = await api.getAllUsers();
-                this.displayUsers(result.users.slice(0, 2)); // Show first 2 users
+                this.displayUsers(result.users.slice(0, 2));
             } catch (error) {
                 console.error('Error loading users:', error);
             }
@@ -675,7 +620,7 @@ const pages = {
 
         displayUsers(users) {
             const userItems = document.querySelectorAll('.admin-table-item');
-            const submissionItems = userItems.length > 4 ? Array.from(userItems).slice(4, 6) : [];
+            const submissionItems = Array.from(userItems).slice(4, 6);
             
             users.forEach((user, index) => {
                 if (submissionItems[index]) {
@@ -697,7 +642,6 @@ const pages = {
         },
 
         setupEventListeners() {
-            // Submission approval/rejection
             document.addEventListener('click', async (e) => {
                 if (e.target.classList.contains('approve-btn') || e.target.classList.contains('reject-btn')) {
                     const submissionId = e.target.dataset.id;
@@ -714,7 +658,6 @@ const pages = {
                 }
             });
             
-            // User role changes
             document.addEventListener('change', async (e) => {
                 if (e.target.classList.contains('user-role-select')) {
                     const userId = e.target.dataset.userId;
@@ -725,7 +668,7 @@ const pages = {
                         showMessage('User role updated successfully', 'success');
                     } catch (error) {
                         showMessage(error.message, 'error');
-                        e.target.value = e.target.defaultValue; // Reset on error
+                        e.target.value = e.target.defaultValue;
                     }
                 }
             });
@@ -735,7 +678,6 @@ const pages = {
 
 // Utility functions
 function showMessage(message, type = 'info') {
-    // Create or update message display
     let msgEl = document.getElementById('message-display');
     if (!msgEl) {
         msgEl = document.createElement('div');

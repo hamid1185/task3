@@ -404,6 +404,9 @@ input, button, textarea, select {
 .art-card-text {
   margin-top: 1rem;
 }
+.font-semibold {
+  font-weight: 600;
+}
 
 /* Placeholders */
 .placeholder-text-group {

@@ -1,29 +1,20 @@
 [
     {
         "id": 1,
-        "username": "user2",
-        "email": "u2@gmail.com",
-        "password": "$2y$10$dPwEi.cX6bu27C45y4IRyef61cut7nCBG1yedPn4MglLN6qvoN8cW",
-        "role": "General",
+        "username": "admin",
+        "email": "admin@indigenousart.com",
+        "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "role": "admin",
         "status": "active",
-        "created_at": "2025-09-22 17:05:08"
+        "created_at": "2025-09-22 21:00:00"
     },
-     {
-    "id": 1,
-    "username": "admin",
-    "email": "admin@indigenousart.com",
-    "password": "$2y$10$examplehashforadmin1234567890abcdef",
-    "role": "admin",
-    "status": "active",
-    "created_at": "2025-09-22 21:00:00"
-  },
-  {
-    "id": 2,
-    "username": "user1",
-    "email": "user1@example.com",
-    "password": "$2y$10$examplehashforuser1234567890abcdef",
-    "role": "general",
-    "status": "active",
-    "created_at": "2025-09-22 21:00:00"
-  }
+    {
+        "id": 2,
+        "username": "user1",
+        "email": "user1@example.com",
+        "password": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "role": "general",
+        "status": "active",
+        "created_at": "2025-09-22 21:00:00"
+    }
 ]
