@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Ancient Cave Painting",
+    "type": "Rock Art",
+    "artist": "Unknown",
+    "period": "c. 5000 BCE",
+    "description": "Ancient cave paintings depicting hunting scenes and daily life of indigenous people.",
+    "location": "Northern Territory, Australia",
+    "image_url": "https://picsum.photos/seed/1/400/300",
+    "condition_note": "Well preserved with minor weathering.",
+    "status": "approved",
+    "submitted_by": 2,
+    "created_at": "2025-09-22 21:00:00"
+  },
+  {
+    "id": 2,
+    "title": "Traditional Pottery Vessel",
+    "type": "Pottery",
+    "artist": "Maria Santos",
+    "period": "c. 1800 CE",
+    "description": "Ceremonial pottery vessel with traditional geometric patterns.",
+    "location": "Southwestern United States",
+    "image_url": "https://picsum.photos/seed/2/400/300",
+    "condition_note": "Excellent condition with original pigments intact.",
+    "status": "approved",
+    "submitted_by": 2,
+    "created_at": "2025-09-22 21:00:00"
+  }
+]

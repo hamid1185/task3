@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "New Rock Art Discovery",
+    "type": "Rock Art",
+    "artist": "Unknown",
+    "period": "c. 3000 BCE",
+    "description": "Recently discovered rock art showing animal figures.",
+    "location": "Central Australia",
+    "image_url": "https://picsum.photos/seed/3/400/300",
+    "condition_note": "Good condition, needs documentation.",
+    "status": "pending",
+    "submitted_by": 2,
+    "created_at": "2025-09-22 21:00:00"
+  }
+]

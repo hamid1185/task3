@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Rock Art",
+    "description": "Ancient paintings and engravings on rock surfaces"
+  },
+  {
+    "id": 2,
+    "name": "Pottery",
+    "description": "Traditional ceramic vessels and decorative items"
+  },
+  {
+    "id": 3,
+    "name": "Textile",
+    "description": "Woven materials, clothing, and fabric art"
+  }
+]

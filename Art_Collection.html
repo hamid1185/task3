@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indigenous Art Atlas - Art Collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="main-header">
+            <div class="container">
+                <a href="Home-Page.html" class="logo">LOGO</a>
+                <nav class="main-nav">
+                    <a href="Home-Page.html">Home</a>
+                    <a href="#">Usage Guidelines</a>
+                    <a href="#">Contact</a>
+                    <a href="Art_Collection.html">Art</a>
+                    <a href="#">About us</a>
+                    <a href="Login.html">Signin/Signup</a>
+                </nav>
+                <button class="btn btn-secondary">Search</button>
+            </div>
+        </header>
+
+        <main class="flex-grow">
+            <div class="container page-content">
+                <h1 class="page-title">Our Art Collection</h1>
+              
+                <div class="max-w-2xl mx-auto mb-12">
+                    <input type="text" placeholder="Search" class="collection-search"/>
+                </div>
+              
+                <div class="filter-bar">
+                    <button class="filter-btn">
+                        <span>Type</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="height:1rem; width:1rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <button class="filter-btn">
+                        <span>Periods</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="height:1rem; width:1rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <button class="filter-btn">
+                        <span>Location</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="height:1rem; width:1rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <button class="filter-btn filter-btn-apply">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="height:1.25rem; width:1.25rem;" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" /></svg>
+                        <span>Apply Filter</span>
+                    </button>
+                    <button class="filter-btn filter-btn-clear">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="height:1.25rem; width:1.25rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        <span>Clear All</span>
+                    </button>
+                </div>
+
+                <div class="sort-control">
+                    <label for="sort-by" class="text-gray-600 mr-2">Sort :</label>
+                    <select id="sort-by" class="sort-select">
+                        <option>Title(A-Z)</option>
+                        <option>Title(Z-A)</option>
+                        <option>Recently Added</option>
+                    </select>
+                </div>
+
+                <div class="art-grid sm-grid-cols-2 lg-grid-cols-3">
+                    <a href="Art_Details.html" class="art-card">
+                        <div class="art-card-image-container"><img src="https://picsum.photos/seed/1/400/300" alt="Artwork" class="art-card-image" /></div>
+                        <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
+                    </a>
+                    <a href="Art_Details.html" class="art-card">
+                        <div class="art-card-image-container"><img src="https://picsum.photos/seed/2/400/300" alt="Artwork" class="art-card-image" /></div>
+                        <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
+                    </a>
+                    <a href="Art_Details.html" class="art-card">
+                        <div class="art-card-image-container"><img src="https://picsum.photos/seed/3/400/300" alt="Artwork" class="art-card-image" /></div>
+                        <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
+                    </a>
+                    <a href="Art_Details.html" class="art-card">
+                        <div class="art-card-image-container"><img src="https://picsum.photos/seed/4/400/300" alt="Artwork" class="art-card-image" /></div>
+                        <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
+                    </a>
+                    <a href="Art_Details.html" class="art-card">
+                        <div class="art-card-image-container"><img src="https://picsum.photos/seed/5/400/300" alt="Artwork" class="art-card-image" /></div>
+                        <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
+                    </a>
+                    <a href="Art_Details.html" class="art-card">
+                        <div class="art-card-image-container"><img src="https://picsum.photos/seed/6/400/300" alt="Artwork" class="art-card-image" /></div>
+                        <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
+                    </a>
+                </div>
+              
+                <div class="text-center mt-12">
+                    <button class="btn btn-secondary btn-icon">
+                        <span>View More</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                </div>
+
+                <nav class="pagination">
+                    <button class="page-arrow"><svg xmlns="http://www.w3.org/2000/svg" class="icon" style="height:1.25rem; width:1.25rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                    <button class="page-num active">1</button>
+                    <button class="page-num">2</button>
+                    <button class="page-num">3</button>
+                    <button class="page-num">4</button>
+                    <button class="page-num">5</button>
+                    <button class="page-num">6</button>
+                    <button class="page-arrow"><svg xmlns="http://www.w3.org/2000/svg" class="icon" style="height:1.25rem; width:1.25rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                </nav>
+            </div>
+        </main>
+        
+        <footer class="main-footer">
+            <div class="container">
+                <div><h2 class="footer-title">Indigenous Art Atlas</h2></div>
+                <div class="footer-links">
+                  <h3 class="footer-links-title">Links</h3>
+                  <a href="#">About Us</a>
+                  <a href="#">Usage Guideline</a>
+                  <a href="#">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

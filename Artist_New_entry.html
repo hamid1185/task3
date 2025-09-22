@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indigenous Art Atlas - Submit Art</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="main-header">
+            <div class="container">
+                <a href="Home-Page.html" class="logo">LOGO</a>
+                <nav class="main-nav">
+                    <a href="Home-Page.html">Home</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Usage Guidelines</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Profile</a>
+                </nav>
+                <button class="btn btn-secondary">Search</button>
+            </div>
+        </header>
+
+        <main class="flex-grow">
+            <div class="container page-content max-w-4xl">
+                <div class="text-center">
+                    <h1 class="page-title" style="margin-bottom: 0.5rem;">Submit New Art Entry</h1>
+                    <p class="page-subtitle">Share your art discovery with the community</p>
+                </div>
+                <div class="divider my-8"></div>
+              
+                <div class="space-y-10">
+                    <div class="grid md-grid-cols-2 gap-8">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Art Details</h3>
+                            <div class="space-y-6">
+                                <div><label class="form-label">Title</label><input type="text" class="form-input" /></div>
+                                <div><label class="form-label">Art Type</label><select class="form-select"><option>Select...</option><option>Rock Art</option><option>Pottery</option><option>Textile</option></select></div>
+                                <div><label class="form-label">Description</label><textarea rows="4" class="form-textarea"></textarea></div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Artist Information</h3>
+                            <div class="space-y-6">
+                                <div><label class="form-label">Artist Name</label><input type="text" class="form-input" /></div>
+                                <div><label class="form-label">Period</label><select class="form-select"><option>Select...</option></select></div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-section">
+                        <h3 class="form-section-title">Location Details</h3>
+                        <div class="space-y-6">
+                            <div class="map-placeholder" style="height: 16rem;">Map Placeholder</div>
+                            <div><label class="form-label">Location Notes</label><input type="text" class="form-input" /></div>
+                            <div class="flex items-center"><input id="sensitivity" type="checkbox" class="form-checkbox" /><label for="sensitivity" class="ml-2">Culturally sensitive / Private land</label></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">Image Upload</h3>
+                        <div class="upload-btn-group">
+                            <button class="btn btn-secondary" style="border-radius: 0.375rem;">Choose Files</button>
+                            <button class="upload-btn-add">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 mt-12">
+                    <button class="btn btn-secondary" style="padding: 0.75rem 2rem;">Save as Draft</button>
+                    <button class="btn btn-primary" style="padding: 0.75rem 2rem;">Submit for Review</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="main-footer">
+            <div class="container">
+                <div><h2 class="footer-title">Indigenous Art Atlas</h2></div>
+                <div class="footer-links">
+                  <h3 class="footer-links-title">Links</h3>
+                  <a href="#">About Us</a>
+                  <a href="#">Usage Guideline</a>
+                  <a href="#">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+        <script src="app.js"></script>
+
+</body>
+</html>

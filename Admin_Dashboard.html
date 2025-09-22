@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indigenous Art Atlas - Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="admin-page-container">
+        <header class="admin-header">
+            <div class="container">
+                <a href="Home-Page.html" class="logo">LOGO</a>
+                <nav class="admin-nav">
+                    <a href="Admin_Dashboard.html">Dashboard</a>
+                    <a href="Admin_Dashboard.html">Submissions</a>
+                    <a href="Admin_Dashboard.html">Users</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <div class="admin-user-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                        <span>Admin</span>
+                    </div>
+                    <button class="admin-header-button"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m11-1V5a4 4 0 00-4-4H9a4 4 0 00-4 4v10m11 0a4 4 0 004-4v-2a4 4 0 00-4-4h-1" /></svg></button>
+                </div>
+            </div>
+            <div class="border-b"></div>
+        </header>
+
+        <main class="flex-grow">
+            <div class="container page-content">
+                <h1 class="page-title" style="text-align: left;">Admin Dashboard</h1>
+                <div class="grid md-grid-cols-3 gap-8 mb-8">
+                    <div class="stat-card"><h3>Pending Submissions</h3><p>44</p></div>
+                    <div class="stat-card"><h3>Total Users</h3><p>398</p></div>
+                    <div class="stat-card"><h3>Total Artworks</h3><p>556</p></div>
+                </div>
+                
+                <div class="mb-8">
+                    <div class="admin-section">
+                        <div class="admin-section-header"><h2>Submission Moderation Queue</h2></div>
+                        <div class="grid md-grid-cols-2">
+                            <div style="border-right: 1px solid var(--color-gray-200);">
+                                <div class="admin-table-item"><div class="item-thumbnail"></div><div class="item-info"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div><div class="item-actions"><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Approve</button><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Reject</button></div></div>
+                                <div class="admin-table-item"><div class="item-thumbnail"></div><div class="item-info"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div><div class="item-actions"><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Approve</button><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Reject</button></div></div>
+                            </div>
+                            <div>
+                                <div class="admin-table-item"><div class="item-thumbnail"></div><div class="item-info"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div><div class="item-actions"><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Approve</button><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Reject</button></div></div>
+                                <div class="admin-table-item"><div class="item-thumbnail"></div><div class="item-info"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div><div class="item-actions"><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Approve</button><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Reject</button></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6"><button class="btn btn-secondary">View all pending Submission</button></div>
+                </div>
+                
+                <div class="mb-8">
+                    <div class="admin-section">
+                        <div class="admin-section-header"><h2>User Management</h2></div>
+                        <div>
+                            <div class="admin-table-item"><div class="item-avatar"></div><div class="item-info"><div class="placeholder-text-line third mb-2"></div><div class="placeholder-text-line fourth"></div></div><div class="w-40"><select class="user-role-select"><option>General</option><option>Admin</option></select></div><div><span class="status-badge">Active</span></div></div>
+                            <div class="admin-table-item"><div class="item-avatar"></div><div class="item-info"><div class="placeholder-text-line third mb-2"></div><div class="placeholder-text-line fourth"></div></div><div class="w-40"><select class="user-role-select"><option>General</option><option>Admin</option></select></div><div><span class="status-badge">Active</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="admin-section">
+                        <div class="admin-section-header"><h2>Category & Tag Management</h2><button class="btn btn-primary btn-sm">+ Add Type</button></div>
+                        <div>
+                            <div class="admin-table-item"><div class="item-info"><div class="placeholder-text-line fourth"></div></div><div class="flex space-x-2"><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Edit</button><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Delete</button></div></div>
+                            <div class="admin-table-item"><div class="item-info"><div class="placeholder-text-line fourth"></div></div><div class="flex space-x-2"><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Edit</button><button class="btn btn-secondary btn-sm" style="background: var(--color-gray-300);">Delete</button></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+        <script src="app.js"></script>
+
+</body>
+</html>
