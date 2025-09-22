@@ -27,15 +27,16 @@
             <div class="container page-content">
                 <div class="art-detail-grid">
                     <div>
-                        <h1 class="art-detail-title">Art Name (Title)</h1>
-                        <div class="art-detail-item"><h2>Type:</h2><p>Rock Art</p></div>
-                        <div class="art-detail-item"><h2>Estimated Period:</h2><p>c. 5000 BCE</p></div>
-                        <div class="art-detail-item"><h2>Artist Name:</h2><p>Unknown</p></div>
-                        <div class="art-detail-item"><h2>Description:</h2><p>A brief placeholder description about the artwork, its origins, and cultural significance would go here. This text serves to fill the space.</p></div>
-                        <div class="art-detail-item"><h2>Condition Note:</h2><p>The artwork is well-preserved with minor weathering consistent with its age. Some pigments have faded over time.</p></div>
+                        <h1 class="art-detail-title">Loading...</h1>
+                        <div class="art-detail-item"><h2>Type:</h2><p class="detail-type">Loading...</p></div>
+                        <div class="art-detail-item"><h2>Estimated Period:</h2><p class="detail-period">Loading...</p></div>
+                        <div class="art-detail-item"><h2>Artist Name:</h2><p class="detail-artist">Loading...</p></div>
+                        <div class="art-detail-item"><h2>Location:</h2><p class="detail-location">Loading...</p></div>
+                        <div class="art-detail-item"><h2>Description:</h2><p class="detail-description">Loading...</p></div>
+                        <div class="art-detail-item"><h2>Condition Note:</h2><p class="detail-condition">Loading...</p></div>
                     </div>
                     <div class="art-detail-image-container">
-                        <img src="https://picsum.photos/seed/artdetail/600/600" alt="Artwork" class="art-detail-image"/>
+                        <img src="" alt="Artwork" class="art-detail-image"/>
                     </div>
                 </div>
                 
@@ -43,19 +44,8 @@
                 
                 <section>
                     <h2 class="section-title">Similar Collection</h2>
-                    <div class="art-grid md-grid-cols-3">
-                       <a href="Art_Details.html" class="art-card">
-                          <div class="art-card-image-container"><img src="https://picsum.photos/seed/10/400/300" alt="Artwork" class="art-card-image" /></div>
-                          <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
-                        </a>
-                        <a href="Art_Details.html" class="art-card">
-                          <div class="art-card-image-container"><img src="https://picsum.photos/seed/11/400/300" alt="Artwork" class="art-card-image" /></div>
-                          <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
-                        </a>
-                        <a href="Art_Details.html" class="art-card">
-                          <div class="art-card-image-container"><img src="https://picsum.photos/seed/12/400/300" alt="Artwork" class="art-card-image" /></div>
-                          <div class="art-card-text"><div class="placeholder-text-line three-fourths mb-2"></div><div class="placeholder-text-line half"></div></div>
-                        </a>
+                    <div class="art-grid md-grid-cols-3" id="similar-artworks">
+                        <div class="loading-message">Loading similar artworks...</div>
                     </div>
                     <div class="text-center mt-12">
                         <button class="btn btn-secondary btn-icon">

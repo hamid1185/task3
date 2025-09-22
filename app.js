@@ -208,14 +208,15 @@ const pages = {
         async loadLatestArtworks() {
             try {
                 const result = await api.getArtworks(1, 3);
-                this.displayArtworks(result.artworks);
+                this.displayLatestArtworks(result.artworks);
             } catch (error) {
                 console.error('Error loading artworks:', error);
+                this.showError('Failed to load artworks');
             }
         },
 
-        displayArtworks(artworks) {
-            const grid = document.querySelector('.art-grid');
+        displayLatestArtworks(artworks) {
+            const grid = document.getElementById('latest-artworks');
             if (grid && artworks.length > 0) {
                 grid.innerHTML = artworks.map(artwork => `
                     <a href="Art_Details.html?id=${artwork.id}" class="art-card">
@@ -228,6 +229,15 @@ const pages = {
                         </div>
                     </a>
                 `).join('');
+            } else if (grid) {
+                grid.innerHTML = '<div class="no-data-message">No artworks available</div>';
+            }
+        },
+
+        showError(message) {
+            const grid = document.getElementById('latest-artworks');
+            if (grid) {
+                grid.innerHTML = `<div class="error-message">${message}</div>`;
             }
         },
 
@@ -303,6 +313,8 @@ const pages = {
                         </div>
                     </a>
                 `).join('');
+            } else if (grid) {
+                grid.innerHTML = '<div class="no-data-message">No artworks found</div>';
             }
         },
 
@@ -381,35 +393,21 @@ const pages = {
         },
 
         displayArtwork(artwork) {
-            const title = document.querySelector('.art-detail-title');
-            if (title) title.textContent = artwork.title;
+            document.querySelector('.art-detail-title').textContent = artwork.title;
+            document.querySelector('.detail-type').textContent = artwork.type;
+            document.querySelector('.detail-period').textContent = artwork.period;
+            document.querySelector('.detail-artist').textContent = artwork.artist;
+            document.querySelector('.detail-location').textContent = artwork.location || 'Not specified';
+            document.querySelector('.detail-description').textContent = artwork.description;
+            document.querySelector('.detail-condition').textContent = artwork.condition_note || 'No condition notes available';
 
             const img = document.querySelector('.art-detail-image');
-            if (img) {
-                img.src = artwork.image_url;
-                img.alt = artwork.title;
-            }
-
-            const details = document.querySelectorAll('.art-detail-item');
-            const detailsMap = {
-                'Type:': artwork.type,
-                'Estimated Period:': artwork.period,
-                'Artist Name:': artwork.artist,
-                'Description:': artwork.description,
-                'Condition Note:': artwork.condition_note
-            };
-
-            details.forEach(item => {
-                const label = item.querySelector('h2')?.textContent;
-                const value = item.querySelector('p');
-                if (label && value && detailsMap[label]) {
-                    value.textContent = detailsMap[label];
-                }
-            });
+            img.src = artwork.image_url;
+            img.alt = artwork.title;
         },
 
         displaySimilarArtworks(artworks) {
-            const grid = document.querySelector('.art-grid');
+            const grid = document.getElementById('similar-artworks');
             if (grid && artworks.length > 0) {
                 grid.innerHTML = artworks.map(artwork => `
                     <a href="Art_Details.html?id=${artwork.id}" class="art-card">
@@ -422,6 +420,8 @@ const pages = {
                         </div>
                     </a>
                 `).join('');
+            } else if (grid) {
+                grid.innerHTML = '<div class="no-data-message">No similar artworks found</div>';
             }
         }
     },
@@ -533,6 +533,7 @@ const pages = {
             this.loadStats();
             this.loadPendingSubmissions();
             this.loadUsers();
+            this.loadCategories();
             this.setupEventListeners();
         },
 
@@ -561,84 +562,104 @@ const pages = {
         },
 
         displayStats(stats) {
-            const statCards = document.querySelectorAll('.stat-card');
-            const statsValues = [
-                stats.pending_submissions,
-                stats.total_users,
-                stats.total_artworks
-            ];
-            
-            statCards.forEach((card, index) => {
-                const value = card.querySelector('p');
-                if (value && statsValues[index] !== undefined) {
-                    value.textContent = statsValues[index];
-                }
-            });
+            document.getElementById('pending-count').textContent = stats.pending_submissions;
+            document.getElementById('users-count').textContent = stats.total_users;
+            document.getElementById('artworks-count').textContent = stats.total_artworks;
         },
 
         async loadPendingSubmissions() {
             try {
                 const result = await api.getSubmissions('pending');
-                this.displayPendingSubmissions(result.submissions.slice(0, 4));
+                this.displayPendingSubmissions(result.submissions);
             } catch (error) {
                 console.error('Error loading submissions:', error);
             }
         },
 
         displayPendingSubmissions(submissions) {
-            const items = document.querySelectorAll('.admin-table-item');
-            
-            submissions.forEach((submission, index) => {
-                if (items[index]) {
-                    const info = items[index].querySelector('.item-info');
-                    if (info) {
-                        info.innerHTML = `
+            const container = document.getElementById('pending-submissions');
+            if (submissions.length > 0) {
+                container.innerHTML = submissions.map(submission => `
+                    <div class="admin-table-item">
+                        <div class="item-thumbnail">
+                            <img src="${submission.image_url}" alt="${submission.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.375rem;">
+                        </div>
+                        <div class="item-info">
                             <div class="font-semibold">${submission.title}</div>
                             <div class="text-gray-600">${submission.type} - ${submission.period}</div>
-                        `;
-                    }
-                    
-                    const actions = items[index].querySelector('.item-actions');
-                    if (actions) {
-                        actions.innerHTML = `
+                        </div>
+                        <div class="item-actions">
                             <button class="btn btn-secondary btn-sm approve-btn" data-id="${submission.id}">Approve</button>
                             <button class="btn btn-secondary btn-sm reject-btn" data-id="${submission.id}">Reject</button>
-                        `;
-                    }
-                }
-            });
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<div class="no-data-message">No pending submissions</div>';
+            }
         },
 
         async loadUsers() {
             try {
                 const result = await api.getAllUsers();
-                this.displayUsers(result.users.slice(0, 2));
+                this.displayUsers(result.users);
             } catch (error) {
                 console.error('Error loading users:', error);
             }
         },
 
         displayUsers(users) {
-            const userItems = document.querySelectorAll('.admin-table-item');
-            const submissionItems = Array.from(userItems).slice(4, 6);
-            
-            users.forEach((user, index) => {
-                if (submissionItems[index]) {
-                    const info = submissionItems[index].querySelector('.item-info');
-                    if (info) {
-                        info.innerHTML = `
+            const container = document.getElementById('users-list');
+            if (users.length > 0) {
+                container.innerHTML = users.map(user => `
+                    <div class="admin-table-item">
+                        <div class="item-avatar"></div>
+                        <div class="item-info">
                             <div class="font-semibold">${user.username}</div>
                             <div class="text-gray-600">${user.email}</div>
-                        `;
-                    }
-                    
-                    const select = submissionItems[index].querySelector('.user-role-select');
-                    if (select) {
-                        select.value = user.role;
-                        select.dataset.userId = user.id;
-                    }
-                }
-            });
+                        </div>
+                        <div class="w-40">
+                            <select class="user-role-select" data-user-id="${user.id}">
+                                <option value="general" ${user.role === 'general' ? 'selected' : ''}>General</option>
+                                <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                                <option value="researcher" ${user.role === 'researcher' ? 'selected' : ''}>Researcher</option>
+                            </select>
+                        </div>
+                        <div><span class="status-badge">${user.status}</span></div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<div class="no-data-message">No users found</div>';
+            }
+        },
+
+        async loadCategories() {
+            try {
+                const result = await api.getCategories();
+                this.displayCategories(result.categories);
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        },
+
+        displayCategories(categories) {
+            const container = document.getElementById('categories-list');
+            if (categories.length > 0) {
+                container.innerHTML = categories.map(category => `
+                    <div class="admin-table-item">
+                        <div class="item-info">
+                            <div class="font-semibold">${category.name}</div>
+                            <div class="text-gray-600">${category.description || 'No description'}</div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="btn btn-secondary btn-sm edit-category-btn" data-id="${category.id}">Edit</button>
+                            <button class="btn btn-secondary btn-sm delete-category-btn" data-id="${category.id}">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<div class="no-data-message">No categories found</div>';
+            }
         },
 
         setupEventListeners() {

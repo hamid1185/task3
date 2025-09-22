@@ -354,6 +354,12 @@ input, button, textarea, select {
   object-fit: cover;
   border-radius: 0.5rem;
 }
+.hero-description {
+  font-size: 1.125rem;
+  color: var(--color-gray-600);
+  line-height: 1.6;
+  margin: 0;
+}
 .explore-map-section {
   margin-bottom: 6rem;
 }
@@ -796,3 +802,19 @@ input, button, textarea, select {
     border: none;
 }
 .w-40 { width: 10rem; }
+
+/* Loading and error states */
+.loading-message, .no-data-message, .error-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-gray-600);
+  font-style: italic;
+}
+
+.error-message {
+  color: #ef4444;
+}
+
+.no-data-message {
+  color: var(--color-gray-500);
+}
